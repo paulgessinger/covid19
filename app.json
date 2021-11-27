@@ -2,7 +2,7 @@
   "cron": [
     {
       "command": "/src/build.sh",
-      "schedule": "*/3 * * * *"
+      "schedule": "0 * * * *"
     }
   ]
 }
