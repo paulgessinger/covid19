@@ -1,7 +1,8 @@
 {
-  "scripts": {
-    "dokku": {
-      "predeploy": "pip install -r requirements.txt && jupyter execute Covid.ipynb && jupyter nbconvert --to=html Covid.ipynb && mkdir output && mv Covid.html output/index.html"
+  "cron": [
+    {
+      "command": "/src/build.sh",
+      "schedule": "*/3 * * * *"
     }
-  }
+  ]
 }
