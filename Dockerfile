@@ -8,10 +8,10 @@ RUN pip install -r requirements.txt
 
 COPY Covid.ipynb /src
 
-RUN jupyter execute Covid.ipynb && \
-    jupyter nbconvert --to=html Covid.ipynb && \
+RUN papermill Covid.ipynb Covid_out.ipynb &&\
+    jupyter nbconvert --to=html Covid_out.ipynb && \
     mkdir output && \
-    mv Covid.html output/index.html
+    mv Covid_out.html output/index.html
 
 FROM nginx
 WORKDIR /app
