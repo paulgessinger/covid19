@@ -1,4 +1,8 @@
-FROM python:3.9-slim-buster AS builder
+FROM nginx
+
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip &&\
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
 
@@ -8,17 +12,12 @@ RUN pip install -r requirements.txt
 
 COPY Covid.ipynb /src
 
-RUN papermill Covid.ipynb Covid_out.ipynb &&\
-    jupyter nbconvert --to=html Covid_out.ipynb && \
-    mkdir output && \
-    mv Covid_out.html output/index.html
+COPY build.sh /src
 
-FROM nginx
+RUN ./build.sh
+
 WORKDIR /app
-
-COPY CHECKS /app/
+COPY CHECKS /app
 COPY nginx.conf.sigil .
-
-COPY --from=builder /src/output /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
