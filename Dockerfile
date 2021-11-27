@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:mainline
 
 RUN apt-get update && \
     apt-get install -y python3 python3-pip libffi-dev &&\
