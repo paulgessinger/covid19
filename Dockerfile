@@ -19,5 +19,6 @@ RUN ./build.sh
 WORKDIR /app
 COPY CHECKS /app
 COPY nginx.conf.sigil .
+COPY app.json .
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
